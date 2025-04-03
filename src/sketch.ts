@@ -13,7 +13,7 @@ export const numericParameterDefs = {
     "min": 0,
     "max": 100,
     "step": 1,
-    "defaultValue": 20,
+    "defaultValue": 10,
   },
   "circleSizeMaxInc": {
     "min": 0,
@@ -168,6 +168,12 @@ export function createSketch(parameterStore: ParameterStore) {
         buffer.fill("#4422FF");
         buffer.circle(x, y, circleSize);     
         circles.push({x:x, y:y, size: circleSize, frame: frameCount, echoCount: 1});
+        console.log("drew circle:", circles[circles.length - 1]);
+
+        let x2 = -x;
+        let y2 = -y;
+        buffer.circle(x2, y2, circleSize);
+        circles.push({x:x2, y:y2, size: circleSize, frame: frameCount, echoCount: 1});
         console.log("drew circle:", circles[circles.length - 1]);
       }
 
