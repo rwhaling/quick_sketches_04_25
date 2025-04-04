@@ -8,6 +8,18 @@ export const numericParameterDefs = {
     "step": 0.01,
     "defaultValue": 0.5, 
   },
+  "transparencyStrength": {
+    "min": 0,
+    "max": 255,
+    "step": 1,
+    "defaultValue": 1, 
+  },
+  "steps": {
+    "min": 1,
+    "max": 400,
+    "step": 1,
+    "defaultValue": 400,
+  }
 };
 
 // This type represents the parameter store structure
@@ -47,12 +59,13 @@ export function createSketch(parameterStore: ParameterStore) {
       );
     };
     
+
+    let lastTransparencyStrength = -1
     p.setup = function() {
       // Keep the fixed dimensions - this is the actual size of your visualization
       p.createCanvas(400, 400, p.WEBGL);
-      
+      p.frameRate(0.5);
       // Make sure we're using the right coordinate system
-      p.translate(-p.width/2, -p.height/2); // Move to top-left for image drawing
       
       // Fix any potential canvas styling issues
       const canvas = document.querySelector('.p5Canvas');
@@ -61,35 +74,49 @@ export function createSketch(parameterStore: ParameterStore) {
         (canvas as any).style.display = 'block';
       }
 
-      // draw a black background
-      p.background("#000000");
-      
     }
     
 
     let frameCount = 0;
     let prevTime = 0;
     p.draw = function() {
-      frameCount++;
+      if (currentParams.transparencyStrength == lastTransparencyStrength) return;
+      lastTransparencyStrength = currentParams.transparencyStrength;
+      p.translate(-p.width/2, -p.height/2); // Move to top-left for image drawing
 
-      // Make comment match the actual value
-      // const frameRate = 30; // Simulate 30fps
-      let frameRate = 30
-      const deltaTimePerFrame = 1000 / frameRate;
-      const currentTime = frameCount * deltaTimePerFrame;
+      // draw a black background
+      p.background("#000000");
 
-        
-      p.translate(-p.width/2, -p.height/2);
+      let alphaHex = Math.floor(currentParams.transparencyStrength).toString(16).padStart(2, '0');
+      let transparencyColor = "#000000" + alphaHex;
 
-      let drawFrameInterval = Math.ceil(frameRate * currentParams.timeMultiplier);
-      if (frameCount % drawFrameInterval == 0) {
-        // draw a red circle at a random position on the canvas
-        let x = p.random(0, p.width);
-        let y = p.random(0, p.height);
-        p.fill("#FF0000");
-        p.circle(x, y, 10);        
+
+      let gridSize = Math.ceil(Math.sqrt(currentParams.steps));
+
+      let w = p.width / gridSize;
+
+      // draw 25 80 x 80 rectangles in a grid
+      for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {    
+          let n = i * gridSize + j;
+          p.fill("#4422FF");
+          p.noStroke();
+          p.rect(i * w, j * w, w, w);
+          for (let k = 0; k < n; k++) {
+
+
+            p.fill(transparencyColor);
+            p.rect(i * w, j * w, w, w);
+          }
+          let actualPixel = p.get(5 + i * w, 5 + j * w);
+          let actualColor = p.color(actualPixel);
+          console.log("n",n, "actualColor", actualColor.toString("#rrggbbaa"));
+        }
       }
+      
+
     }
+
 
   };
 }

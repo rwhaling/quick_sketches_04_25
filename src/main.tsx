@@ -2,6 +2,8 @@ import p5 from "p5";
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createSketch, numericParameterDefs, initParameterStore, ParameterStore } from "./sketch";
+import { createSketch as createSketch2, numericParameterDefs as numericParameterDefs2, initParameterStore as initParameterStore2, ParameterStore as ParameterStore2 } from "./reflections";
+import { createSketch as createSketch3, numericParameterDefs as numericParameterDefs3, initParameterStore as initParameterStore3, ParameterStore as ParameterStore3 } from "./transparency_test";
 // Define sketch types for organization
 type SketchType = "default";
 
@@ -10,13 +12,27 @@ let cycleSketch: () => void = () => {};
 
 // Create a map of sketch configurations
 const sketchConfigs = {
+  transparency: {
+    name: "transparency",
+    title: "transparency",
+    createSketch: createSketch3,
+    parameterDefs: numericParameterDefs3,
+    initStore: initParameterStore3
+  },
   default: {
+    name: "reflections",
+    title: "reflections",
+    createSketch: createSketch2,
+    parameterDefs: numericParameterDefs2,
+    initStore: initParameterStore2
+  },
+  test: {
     name: "test sketch",
     title: "test sketch",
     createSketch: createSketch,
     parameterDefs: numericParameterDefs,
     initStore: initParameterStore
-  }
+  },
 };
 
 // Create initial parameter store

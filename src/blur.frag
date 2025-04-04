@@ -12,6 +12,8 @@ uniform vec2 canvasSize;
 // which way to blur, vec2(1.0, 0.0) is horizontal, vec2(0.0, 1.0) is vertical
 uniform vec2 texelSize;
 
+uniform float fadeStrength;
+
 // gaussian blur filter modified from Filip S. at intel 
 // https://software.intel.com/en-us/blogs/2014/07/15/an-investigation-of-fast-real-time-gpu-based-image-blur-algorithms
 // this function takes three parameters, the texture we want to blur, the uvs, and the texelSize
@@ -64,7 +66,8 @@ vec3 gaussianBlur( sampler2D t, vec2 texUV, vec2 stepSize ){
 
 
 	// our final value is returned as col out
-	return colOut * 0.9925;                                                                                                                                                   
+	// return colOut * 0.9925;  
+	return colOut * fadeStrength;                                                                                                                                                   
 } 
 
 
