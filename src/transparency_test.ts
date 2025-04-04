@@ -61,6 +61,7 @@ export function createSketch(parameterStore: ParameterStore) {
     
 
     let lastTransparencyStrength = -1
+    let lastSteps = -1
     p.setup = function() {
       // Keep the fixed dimensions - this is the actual size of your visualization
       p.createCanvas(400, 400, p.WEBGL);
@@ -80,8 +81,9 @@ export function createSketch(parameterStore: ParameterStore) {
     let frameCount = 0;
     let prevTime = 0;
     p.draw = function() {
-      if (currentParams.transparencyStrength == lastTransparencyStrength) return;
+      if (currentParams.transparencyStrength == lastTransparencyStrength && currentParams.steps == lastSteps) return;
       lastTransparencyStrength = currentParams.transparencyStrength;
+      lastSteps = currentParams.steps;
       p.translate(-p.width/2, -p.height/2); // Move to top-left for image drawing
 
       // draw a black background
