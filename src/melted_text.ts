@@ -61,21 +61,21 @@ export const numericParameterDefs = {
 };
 
 export const poemWords = [
-  "The", "library", "contains", "not", "books", 
+  "the", "library", "contains", "not", "books", 
   "but", "glaciers", 
-  "The", "glaciers", "are", "upright",
-  "Silent",
-  "As", "perfectly", "ordered", "as", "books", "would", "be",
-  "But", "they", "are", "melted",
-  "What", "would", "it", "be", "like",
+  "the", "glaciers", "are", "upright",
+  "silent",
+  "as", "perfectly", "ordered", "as", "books", "would", "be",
+  "but", "they", "are", "melted",
+  "what", "would", "it", "be", "like",
   "to", "live", "in", "a", "library",
   "of", "melted", "books",
-  "With", "sentences", "streaming", "over", "the", "floor",
+  "with", "sentences", "streaming", "over", "the", "floor",
   "and", "all", "the", "punctuation",
   "settled", "to", "the", "bottom", "as", "a", "residue",
-  "It", "would", "be", "confusing",
-  "Unforgivable",
-  "A", "great", "adventure"
+  "it", "would", "be", "confusing",
+  "unforgivable",
+  "a", "great", "adventure"
 ];
 
 // This type represents the parameter store structure
